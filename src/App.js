@@ -36,6 +36,9 @@ const App = () => {
         tabBarOptions={{
           activeTintColor: "tomato",
           inactiveTintColor: "gray",
+          labelStyle: {
+            fontWeight: "bold",
+          }
         }}
       >
         <Tab.Screen name="All" component={AllTodoList} />

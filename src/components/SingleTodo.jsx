@@ -32,7 +32,11 @@ const styles = StyleSheet.create({
 const SingleTodo = ({ title, isDone }) => (
   <View style={styles.item}>
     <Text
-      style={{ ...styles.title, textDecorationLine: isDone ? "line-through" : 	'none' }}
+      style={{
+        ...styles.title,
+        textDecorationLine: isDone ? "line-through" : 'none',
+        color: isDone ? 'gray' :  'black'
+      }}
     >
       {title}
     </Text>
@@ -41,20 +45,28 @@ const SingleTodo = ({ title, isDone }) => (
         style={styles.btn}
         // onPress={}
       >
-        <MaterialIcons name="done-all" size={25} color="green"></MaterialIcons>
+        <MaterialIcons
+          name="done-all"
+          size={25}
+          color={isDone ? "gray" : "green"}
+        ></MaterialIcons>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
         // onPress={}
       >
-        <Entypo name="edit" size={25} color="blue"></Entypo>
+        <Entypo name="edit" size={25} color={isDone ? "gray" : "blue"}></Entypo>
         {/* <Feather name="edit" size={25} color="skyblue"></Feather> */}
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
         // onPress={}
       >
-        <MaterialIcons name="delete" size={25} color="tomato"></MaterialIcons>
+        <MaterialIcons
+          name="delete"
+          size={25}
+          color={isDone ? "gray" : "tomato"}
+        ></MaterialIcons>
       </TouchableOpacity>
     </View>
   </View>

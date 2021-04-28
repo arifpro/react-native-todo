@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   StatusBar,
 } from "react-native";
 import DATA from "../data";
@@ -24,13 +25,37 @@ const styles = StyleSheet.create({
     // color: "#f9c2ff",
     color: "#519e9e",
   },
+  inputSection: {
+    // flex: 1,
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
   input: {
     height: 40,
+    width: '90%',
     margin: 12,
     borderWidth: 1,
+    borderColor: '#519e9e',
+    color: 'gray',
+    fontSize: 12,
+    // fontWeight: "bold",
     // fontFamily: "Comic Sans MS",
     borderRadius: 25,
     paddingLeft: 20,
+  },
+  addBtn: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    borderColor: '#519e9e',
+    backgroundColor: '#519e9e',
+    // fontFamily: "Comic Sans MS",
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 0,
   },
 });
 
@@ -41,16 +66,26 @@ const AllTodoList = () => {
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1, marginTop: 50 }}>
         <Text style={styles.headerText}>All Todo List</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
-          placeholder="What needs to be done?"
-        />
+        <View style={styles.inputSection}>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}
+            value={text}
+            placeholder="What needs to be done?"
+          />
+          <TouchableOpacity
+            style={styles.addBtn}
+            // onPress={}
+          >
+            <Text style={{color: '#fff', fontWeight: "bold",}}>Add</Text>
+          </TouchableOpacity>
+        </View>
 
         <FlatList
           data={DATA}
-          renderItem={({ item }) => <SingleTodo title={item.title} isDone={item.isDone} />}
+          renderItem={({ item }) => (
+            <SingleTodo title={item.title} isDone={item.isDone} />
+          )}
           keyExtractor={(item) => item.id}
         />
       </View>

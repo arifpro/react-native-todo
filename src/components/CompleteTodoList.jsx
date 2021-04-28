@@ -41,7 +41,7 @@ const CompleteTodoList = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1, marginTop: 50 }}>
-        <Text style={styles.headerText}>Complete Todo List</Text>
+        <Text style={styles.headerText}>Completed Todo List</Text>
 
         <FlatList
           data={DATA?.filter((item) => item.isDone)}
