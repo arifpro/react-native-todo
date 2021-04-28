@@ -5,7 +5,6 @@ import { Text, View, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
- 
 // icon
 import Entypo from "react-native-vector-icons/Entypo";
 
@@ -16,15 +15,7 @@ import CompleteTodoList from "./components/CompleteTodoList";
 
 const Tab = createBottomTabNavigator();
 
-// export default function App() {
-//   return (
-//     <TabBar>
-//       <TodoList />
-//     </TabBar>
-//   );
-// }
-
-export default function App() {
+const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -53,4 +44,6 @@ export default function App() {
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default App;
