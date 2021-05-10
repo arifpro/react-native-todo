@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-import DATA from "../data";
+// import DATA from "../data";
 import SingleTodo from "./SingleTodo";
 
 const styles = StyleSheet.create({
@@ -27,40 +27,47 @@ const styles = StyleSheet.create({
   },
   inputSection: {
     // flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 10,
   },
   input: {
     height: 40,
-    width: '90%',
+    width: "90%",
     margin: 12,
     borderWidth: 1,
-    borderColor: '#519e9e',
-    color: 'gray',
+    borderColor: "#519e9e",
+    color: "gray",
     fontSize: 12,
     // fontWeight: "bold",
     // fontFamily: "Comic Sans MS",
     borderRadius: 25,
     paddingLeft: 20,
+    outline: "none",
   },
   addBtn: {
     height: 40,
     margin: 12,
     borderWidth: 1,
-    borderColor: '#519e9e',
-    backgroundColor: '#519e9e',
+    borderColor: "#519e9e",
+    backgroundColor: "#519e9e",
     // fontFamily: "Comic Sans MS",
     borderRadius: 25,
     paddingHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
     right: 0,
   },
 });
 
+// redux
+import { useSelector } from "react-redux";
+
 const AllTodoList = () => {
+  const todo = useSelector((state) => state.todo);
   const [text, onChangeText] = React.useState("");
+
+  console.log(todo);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -77,12 +84,13 @@ const AllTodoList = () => {
             style={styles.addBtn}
             // onPress={}
           >
-            <Text style={{color: '#fff', fontWeight: "bold",}}>Add</Text>
+            <Text style={{ color: "#fff", fontWeight: "bold" }}>Add</Text>
           </TouchableOpacity>
         </View>
 
         <FlatList
-          data={DATA}
+          // data={DATA}
+          data={todo.todoData}
           renderItem={({ item }) => (
             <SingleTodo title={item.title} isDone={item.isDone} />
           )}

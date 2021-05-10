@@ -48,7 +48,7 @@ const SingleTodo = ({ title, isDone }) => (
         <MaterialIcons
           name="done-all"
           size={25}
-          color={isDone ? "gray" : "green"}
+          color={isDone ? "gray" : "#0ec70e"}
         ></MaterialIcons>
       </TouchableOpacity>
       <TouchableOpacity

@@ -8,7 +8,7 @@ import {
   TextInput,
   StatusBar,
 } from "react-native";
-import DATA from "../data";
+// import DATA from "../data";
 import SingleTodo from "./SingleTodo";
 
 const styles = StyleSheet.create({
@@ -35,7 +35,11 @@ const styles = StyleSheet.create({
   },
 });
 
+// redux
+import { useSelector } from "react-redux";
+
 const CompleteTodoList = () => {
+  const todo = useSelector((state) => state.todo);
   const [text, onChangeText] = React.useState("");
 
   return (
@@ -44,7 +48,8 @@ const CompleteTodoList = () => {
         <Text style={styles.headerText}>Completed Todo List</Text>
 
         <FlatList
-          data={DATA?.filter((item) => item.isDone)}
+          // data={DATA?.filter((item) => item.isDone)}
+          data={todo?.todoData?.filter((item) => item.isDone)}
           renderItem={({ item }) => <SingleTodo title={item.title} />}
           keyExtractor={(item) => item.id}
         />
