@@ -35,13 +35,12 @@ const todoReducer = (state = initialState, action) => {
         loading: true,
       };
     case todoConstants.TODO_ADD_SUCCESS:
-      const isAdded = state.todoData?.find(item => item.productId === action.payload.productId);
-      return isAdded === undefined ? {
+      return {
         ...state,
         loading: false,
-        success: "",
+        success: "success",
         todoData: [...state.todoData, action.payload],
-      } : {...state};
+      };
     case todoConstants.TODO_ADD_FAILED:
       return {
         ...state,
@@ -60,19 +59,16 @@ const todoReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         success: "",
-        todoData: state.todoData?.map((singleCartItem) => {
-          if (singleCartItem.productId === action.payload?.id) {
-            console.log(singleCartItem);
+        todoData: state.todoData?.map((todo) => {
+          if (todo.id === action.payload?.id) {
 
             return {
-              ...singleCartItem,
-              productQty: action.payload?.qty,
-              total: singleCartItem.productDiscountPrice
-                ? singleCartItem.productDiscountPrice * action.payload?.qty
-                : singleCartItem.productPrice * action.payload?.qty,
+              ...todo,
+              title: action.payload?.title,
+              isDone: action.payload?.isDone
             };
           } else {
-            return { ...singleCartItem };
+            return { ...todo };
           }
         }),
       };
@@ -94,7 +90,7 @@ const todoReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         success: "",
-        todoData: state.todoData?.filter(item => item.productId !== action.payload),
+        todoData: state.todoData?.filter(item => item.id !== action.payload),
       };
     case todoConstants.TODO_DELETE_FAILED:
       return {

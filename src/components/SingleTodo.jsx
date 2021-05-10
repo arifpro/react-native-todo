@@ -29,13 +29,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const SingleTodo = ({ title, isDone }) => (
+const SingleTodo = ({
+  id,
+  title,
+  isDone,
+  setIsUpdateOn,
+  handleUpdateTodo,
+  handleDeleteTodo,
+  onChangeText,
+}) => (
   <View style={styles.item}>
     <Text
       style={{
         ...styles.title,
-        textDecorationLine: isDone ? "line-through" : 'none',
-        color: isDone ? 'gray' :  'black'
+        textDecorationLine: isDone ? "line-through" : "none",
+        color: isDone ? "gray" : "black",
       }}
     >
       {title}
@@ -43,7 +51,7 @@ const SingleTodo = ({ title, isDone }) => (
     <View style={styles.btns}>
       <TouchableOpacity
         style={styles.btn}
-        // onPress={}
+        onPress={() => handleUpdateTodo({ id, title, isDone: true })}
       >
         <MaterialIcons
           name="done-all"
@@ -53,15 +61,16 @@ const SingleTodo = ({ title, isDone }) => (
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
-        // onPress={}
+        onPress={() => {
+          setIsUpdateOn(true);
+          onChangeText(title)
+          handleUpdateTodo({ id, title, isDone });
+        }}
       >
         <Entypo name="edit" size={25} color={isDone ? "gray" : "blue"}></Entypo>
         {/* <Feather name="edit" size={25} color="skyblue"></Feather> */}
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.btn}
-        // onPress={}
-      >
+      <TouchableOpacity style={styles.btn} onPress={() => handleDeleteTodo(id)}>
         <MaterialIcons
           name="delete"
           size={25}

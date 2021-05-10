@@ -1,15 +1,22 @@
 import { todoConstants } from "../actionTypes";
+import shortid from "shortid"
 
 // <===================> todoAdd <===================>
-export const todoAdd = (data) => async (dispatch) => {
+export const todoAdd = (text) => async (dispatch) => {
   try {
     dispatch({
       type: todoConstants.TODO_ADD_REQUEST,
     });
 
+    const newTodo = {
+      id: shortid.generate(),
+      title: text,
+      isDone: false,
+    }
+
     dispatch({
       type: todoConstants.TODO_ADD_SUCCESS,
-      payload: data.text,
+      payload: newTodo,
     });
   } catch (e) {
     dispatch({
@@ -20,7 +27,7 @@ export const todoAdd = (data) => async (dispatch) => {
 };
 
 // <===================> todoUpdate <===================>
-export const todoUpdate = (id, text) => async (dispatch) => {
+export const todoUpdate = ({id, title, isDone}) => async (dispatch) => {
   try {
     dispatch({
       type: todoConstants.TODO_UPDATE_REQUEST,
@@ -28,7 +35,7 @@ export const todoUpdate = (id, text) => async (dispatch) => {
 
     dispatch({
       type: todoConstants.TODO_UPDATE_SUCCESS,
-      payload: {id, text},
+      payload: {id, title, isDone},
     });
   } catch (e) {
     dispatch({

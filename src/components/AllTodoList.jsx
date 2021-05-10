@@ -61,13 +61,43 @@ const styles = StyleSheet.create({
 });
 
 // redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { todoAdd, todoUpdate, todoDelete } from "../redux/actions/todoActions";
 
 const AllTodoList = () => {
+  const dispatch = useDispatch();
   const todo = useSelector((state) => state.todo);
+  const [data, setData] = React.useState(todo?.todoData);
   const [text, onChangeText] = React.useState("");
+  const [isUpdateOn, setIsUpdateOn] = React.useState(false);
+  const [textUpdate, setTextUpdate] = React.useState({
+    id: "",
+    text: "",
+    isDone: false,
+  });
 
-  console.log(todo);
+  React.useEffect(() => {
+    setData(todo?.todoData);
+  }, [todo?.todoData]);
+
+  React.useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  const handleAddTodo = () => {
+    dispatch(todoAdd(text));
+    onChangeText("");
+  };
+
+  const handleUpdateTodo = ({ id, title, isDone }) => {
+    setTextUpdate({ ...textUpdate, id, title, isDone });
+    dispatch(todoUpdate({ id, title, isDone }));
+    onChangeText("");
+  };
+
+  const handleDeleteTodo = (id) => {
+    dispatch(todoDelete(id));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -82,17 +112,27 @@ const AllTodoList = () => {
           />
           <TouchableOpacity
             style={styles.addBtn}
-            // onPress={}
+            onPress={() => (isUpdateOn ? handleUpdateTodo() : handleAddTodo())}
           >
-            <Text style={{ color: "#fff", fontWeight: "bold" }}>Add</Text>
+            <Text style={{ color: "#fff", fontWeight: "bold" }}>
+              {isUpdateOn ? "Update" : "Add"}
+            </Text>
           </TouchableOpacity>
         </View>
 
         <FlatList
           // data={DATA}
-          data={todo.todoData}
+          data={data}
           renderItem={({ item }) => (
-            <SingleTodo title={item.title} isDone={item.isDone} />
+            <SingleTodo
+              id={item.id}
+              title={item.title}
+              isDone={item.isDone}
+              setIsUpdateOn={setIsUpdateOn}
+              handleUpdateTodo={handleUpdateTodo}
+              handleDeleteTodo={handleDeleteTodo}
+              onChangeText={onChangeText}
+            />
           )}
           keyExtractor={(item) => item.id}
         />
