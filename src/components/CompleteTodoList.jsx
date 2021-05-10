@@ -40,11 +40,11 @@ import { useSelector } from "react-redux";
 
 const CompleteTodoList = () => {
   const todo = useSelector((state) => state.todo);
-  const [data, setData] = React.useState();
+  const [data, setData] = React.useState(todo?.todoData);
 
   React.useEffect(() => {
-    setData(todo)
-  }, [todo.todoData])
+    setData(todo?.todoData);
+  }, [todo?.todoData]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,7 +54,9 @@ const CompleteTodoList = () => {
         <FlatList
           // data={DATA?.filter((item) => item.isDone)}
           data={data?.filter((item) => item.isDone)}
-          renderItem={({ item }) => <SingleTodo title={item.title} />}
+          renderItem={({ item }) => (
+            <SingleTodo id={item.id} title={item.title} isDone={item.isDone} />
+          )}
           keyExtractor={(item) => item.id}
         />
       </View>

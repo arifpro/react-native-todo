@@ -72,7 +72,6 @@ const AllTodoList = () => {
   const [isUpdateOn, setIsUpdateOn] = React.useState(false);
   const [textUpdate, setTextUpdate] = React.useState({
     id: "",
-    text: "",
     isDone: false,
   });
 
@@ -80,19 +79,19 @@ const AllTodoList = () => {
     setData(todo?.todoData);
   }, [todo?.todoData]);
 
-  React.useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const handleAddTodo = () => {
     dispatch(todoAdd(text));
     onChangeText("");
   };
 
-  const handleUpdateTodo = ({ id, title, isDone }) => {
-    setTextUpdate({ ...textUpdate, id, title, isDone });
+  const handleDoneTodo = ({ id, title, isDone }) => {
     dispatch(todoUpdate({ id, title, isDone }));
+  };
+
+  const handleUpdateTodo = () => {
+    dispatch(todoUpdate({ ...textUpdate, title: text }));
     onChangeText("");
+    setIsUpdateOn(false);
   };
 
   const handleDeleteTodo = (id) => {
@@ -108,6 +107,7 @@ const AllTodoList = () => {
             style={styles.input}
             onChangeText={onChangeText}
             value={text}
+            // defaultValue={text}
             placeholder="What needs to be done?"
           />
           <TouchableOpacity
@@ -129,9 +129,11 @@ const AllTodoList = () => {
               title={item.title}
               isDone={item.isDone}
               setIsUpdateOn={setIsUpdateOn}
+              handleDoneTodo={handleDoneTodo}
               handleUpdateTodo={handleUpdateTodo}
               handleDeleteTodo={handleDeleteTodo}
               onChangeText={onChangeText}
+              setTextUpdate={setTextUpdate}
             />
           )}
           keyExtractor={(item) => item.id}

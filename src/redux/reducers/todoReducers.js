@@ -58,9 +58,10 @@ const todoReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        success: "",
+        success: "update success",
         todoData: state.todoData?.map((todo) => {
           if (todo.id === action.payload?.id) {
+            console.log(action.payload)
 
             return {
               ...todo,

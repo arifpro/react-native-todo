@@ -34,7 +34,8 @@ const SingleTodo = ({
   title,
   isDone,
   setIsUpdateOn,
-  handleUpdateTodo,
+  setTextUpdate,
+  handleDoneTodo,
   handleDeleteTodo,
   onChangeText,
 }) => (
@@ -51,7 +52,9 @@ const SingleTodo = ({
     <View style={styles.btns}>
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => handleUpdateTodo({ id, title, isDone: true })}
+        onPress={() =>
+          handleDoneTodo && handleDoneTodo({ id, title, isDone: true })
+        }
       >
         <MaterialIcons
           name="done-all"
@@ -62,15 +65,18 @@ const SingleTodo = ({
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
-          setIsUpdateOn(true);
-          onChangeText(title)
-          handleUpdateTodo({ id, title, isDone });
+          setIsUpdateOn && setIsUpdateOn(true);
+          onChangeText && onChangeText(title);
+          setTextUpdate && setTextUpdate({ id, isDone });
         }}
       >
         <Entypo name="edit" size={25} color={isDone ? "gray" : "blue"}></Entypo>
         {/* <Feather name="edit" size={25} color="skyblue"></Feather> */}
       </TouchableOpacity>
-      <TouchableOpacity style={styles.btn} onPress={() => handleDeleteTodo(id)}>
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => handleDeleteTodo && handleDeleteTodo(id)}
+      >
         <MaterialIcons
           name="delete"
           size={25}
