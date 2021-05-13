@@ -1,17 +1,10 @@
 import express from "express";
 const router = express.Router();
-import {
-  getAll,
-  add,
-  edit,
-  del,
-  done,
-} from "../controllers/todoControllers.js";
+import { getAll, add, update, del } from "../controllers/todoControllers.js";
 
-router.post("/get-all", getAll);
+router.get("/get-all", getAll);
 router.post("/add", add);
-router.post("/edit", edit);
-router.post("/delete", del);
-router.post("/done", done);
+router.put("/update", update);
+router.delete("/delete", del);
 
 export default router;
