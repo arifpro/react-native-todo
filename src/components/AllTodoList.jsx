@@ -62,7 +62,12 @@ const styles = StyleSheet.create({
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { todoAdd, todoUpdate, todoDelete } from "../redux/actions/todoActions";
+import {
+  todoGet,
+  todoAdd,
+  todoUpdate,
+  todoDelete,
+} from "../redux/actions/todoActions";
 
 const AllTodoList = () => {
   const dispatch = useDispatch();
@@ -74,6 +79,10 @@ const AllTodoList = () => {
     id: "",
     isDone: false,
   });
+
+  React.useEffect(() => {
+    dispatch(todoGet());
+  }, []);
 
   React.useEffect(() => {
     setData(todo?.todoData);
@@ -125,7 +134,7 @@ const AllTodoList = () => {
           data={data}
           renderItem={({ item }) => (
             <SingleTodo
-              id={item.id}
+              id={item._id}
               title={item.title}
               isDone={item.isDone}
               setIsUpdateOn={setIsUpdateOn}
@@ -136,7 +145,7 @@ const AllTodoList = () => {
               setTextUpdate={setTextUpdate}
             />
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item._id}
         />
       </View>
     </SafeAreaView>

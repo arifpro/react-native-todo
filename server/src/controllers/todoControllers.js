@@ -3,7 +3,8 @@ import Todo from "../models/Todo.js";
 // <==================== getAll ====================>
 const getAll = async (req, res) => {
   try {
-    const todos = await Todo.find({}).sort({ _id: -1 });
+    // const todos = await Todo.find({}).sort({ _id: -1 });
+    const todos = await Todo.find({});
 
     if (todos) {
       return res.status(200).json({ todos });
@@ -64,6 +65,7 @@ const update = async (req, res) => {
 const del = async (req, res) => {
   let { id } = req.body;
 
+  console.log(req.body)
   if (!id) {
     return res.json({ error: "Id must be required" });
   }
