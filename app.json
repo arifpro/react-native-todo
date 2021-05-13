@@ -2,9 +2,18 @@
   "name": "react-native-todo",
   "displayName": "react-native-todo",
   "expo": {
-    "name": "react-native-todo",
+    "name": "Todo",
     "slug": "react-native-todo",
+    "icon": "./icon.png",
     "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "me.devarif.todo",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "me.devarif.todo",
+      "versionCode": 1
+    },
     "assetBundlePatterns": [
       "**/*"
     ]
